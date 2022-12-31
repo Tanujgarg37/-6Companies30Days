@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void helper(int i,int k,int n,vector<vector<int>>&ans,vector<int>&dp,vector<int>&vis)
+    {
+        //Base Case
+        if(k==0)
+        {
+            if(n==0)
+            {
+                ans.push_back(dp);
+                return ;
+            }
+        }
+        if(i>n) return; 
+        //Pick i in your sol and use backtracking
+        if(i<=n&&i<=9&&k>0)
+        {
+            vis[i]=1;
+            dp.push_back(i);
+            helper(i+1,k-1,n-i,ans,dp,vis);
+            //Backtrack
+            vis[i]=0;
+            dp.pop_back();
+        }
+        //Dont pick i
+        helper(i+1,k,n,ans,dp,vis);
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>>ans;
+        vector<int>dp;
+        vector<int>vis(10,0);
+        helper(1,k,n,ans,dp,vis);
+        return ans;
+    }
+};
