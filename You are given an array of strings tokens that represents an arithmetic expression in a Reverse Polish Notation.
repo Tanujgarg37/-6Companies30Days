@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        //Creating a stack to store every integer and their corresponding operation on them
+        stack<int>st;
+       
+        for(int i=0;i<tokens.size();i++)
+        {
+            //If the ith value of string is not convertable to integer then we do the operation on top two elements on stack 
+            // and store their result back into stack again.
+            if(tokens[i]=="+")
+            {
+                int op1=st.top();st.pop();
+                int op2=st.top();st.pop();
+                st.push(op1+op2);
+            }
+            else if(tokens[i]=="-")
+            {
+                int op1=st.top();st.pop();
+                int op2=st.top();st.pop();
+                st.push(op2-op1);
+            }
+            else if(tokens[i]=="*")
+            {
+                int op1=st.top();st.pop();
+                int op2=st.top();st.pop();
+                st.push(op1*op2);
+            }
+            else if(tokens[i]=="/")
+            {
+                int op1=st.top();st.pop();
+                int op2=st.top();st.pop();
+                st.push(op2/op1);
+
+            }
+            else{
+                //if it is integer we convert string to int and push element in stack
+                st.push(stoi(tokens[i]));
+            }
+        }
+        //Return the top element of stack as it would contain the required result
+        return st.top();
+    }
+};
